@@ -3,7 +3,8 @@
 Ruby版 Kizuna Bot ( https://github.com/nekonenene/kizuna_bot_image ) の、Go言語での実装です。  
 Discord上で動作する多機能ボットで、天気予報、ニュース配信、グルメ検索、会話応答などの機能を提供します。
 
-作成には [Claude Code](https://docs.anthropic.com/ja/docs/claude-code/overview) を大いに使用しました。
+作成には [Claude Code](https://docs.anthropic.com/ja/docs/claude-code/overview) を大いに活用しました。  
+（おかげで README も長すぎるので、メンテしにくい項は徐々に削っていきます）
 
 
 ## 機能
