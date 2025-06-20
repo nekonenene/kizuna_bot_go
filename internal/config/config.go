@@ -46,7 +46,7 @@ func NewConfig() *Config {
 		YouTubeDataAPIKey:    os.Getenv("YOUTUBE_DATA_API_KEY"),
 
 		// 各APIのエンドポイントURL（固定値）
-		LivedoorWeatherAPIHost: "http://weather.livedoor.com/forecast/webservice/json/v1",
+		LivedoorWeatherAPIHost: "https://weather.tsukumijima.net/api/forecast",
 		RSS2JSONAPIHost:        "https://api.rss2json.com/v1/api.json",
 		HotPepperAPIHost:       "http://webservice.recruit.co.jp/hotpepper/gourmet/v1",
 		CustomSearchAPIHost:    "https://www.googleapis.com/customsearch/v1",
@@ -54,8 +54,8 @@ func NewConfig() *Config {
 		GoogleTranslateAPIHost: "https://script.google.com/macros/s/AKfycbzX3hgwpkCG-q-47nvu9CpeGXJ2uoQVbAngwNpbHjx6jCiOMXE/exec",
 
 		// アプリケーションで使用する定数値
-		TokyoCityID:       130010,                                      // ライブドア天気APIでの東京の都市コード
-		RankTotalCount:    200,                                         // ユーザーランキングで過去何件のメッセージを集計するか
+		TokyoCityID:       130010,                                    // ライブドア天気APIでの東京の都市コード
+		RankTotalCount:    200,                                       // ユーザーランキングで過去何件のメッセージを集計するか
 		HatenaHotentryRSS: "http://b.hatena.ne.jp/hotentry?mode=rss", // はてなホットエントリーのRSS配信URL
 	}
 }
