@@ -98,23 +98,30 @@ func (b *KizunaBot) handleTranslate(s *discordgo.Session, m *discordgo.MessageCr
 	s.ChannelMessageSend(m.ChannelID, message)
 }
 
-// handleVideo searches for videos
+// handleVideo はYouTubeから動画を検索
 func (b *KizunaBot) handleVideo(s *discordgo.Session, m *discordgo.MessageCreate, args []string) {
 	query := strings.Join(args, " ")
-	// TODO: Implement video search API call
-	message := fmt.Sprintf("動画検索機能は実装中です。検索ワード: %s", query)
+	message, err := b.apiClient.GetVideoSearch(query)
+	if err != nil {
+		log.Printf("動画検索エラー: %v", err)
+		message = "動画検索に失敗しました。しばらく時間をおいてからお試しください。"
+	}
 	s.ChannelMessageSend(m.ChannelID, message)
 }
 
-// handleVTuber searches for VTuber videos
+// handleVTuber はVTuber動画を検索
 func (b *KizunaBot) handleVTuber(s *discordgo.Session, m *discordgo.MessageCreate, args []string) {
+	// Ruby版と同様に"VTuber "を前に付けて検索
 	query := "VTuber " + strings.Join(args, " ")
-	// TODO: Implement VTuber video search
-	message := fmt.Sprintf("VTuber動画検索機能は実装中です。検索ワード: %s", query)
+	message, err := b.apiClient.GetVideoSearch(query)
+	if err != nil {
+		log.Printf("VTuber動画検索エラー: %v", err)
+		message = "VTuber動画検索に失敗しました。しばらく時間をおいてからお試しください。"
+	}
 	s.ChannelMessageSend(m.ChannelID, message)
 }
 
-// getMunouMessage returns appropriate response for mentions
+// getMunouMessage はメンション時の応答メッセージを生成
 func (b *KizunaBot) getMunouMessage(message string, m *discordgo.MessageCreate) string {
 	content := strings.ToLower(message)
 
@@ -272,6 +279,12 @@ func (b *KizunaBot) getMunouMessage(message string, m *discordgo.MessageCreate) 
 			"うん！！",
 		}
 		return responses[rand.Intn(len(responses))]
+	case strings.Contains(content, "ゆーま") && (strings.HasSuffix(content, "？") || strings.HasSuffix(content, "?")):
+		// Ruby版と同じ特定チャンネル（ゆーま）の動画検索
+		if videoURL, err := b.apiClient.GetVideoByChannel("UC_9DxYZ_4Lhm9ujFvcHryNw"); err == nil {
+			return fmt.Sprintf("ゆーまってこの人かな？！ (੭ु ›ω‹ )੭ु⁾⁾ %s", videoURL)
+		}
+		return "ゆーまの動画が見つからなかったよ"
 	case strings.HasSuffix(content, "？") || strings.HasSuffix(content, "?"):
 		responses := []string{
 			"そうかも？",
