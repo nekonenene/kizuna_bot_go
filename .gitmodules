@@ -1,0 +1,3 @@
+[submodule "kizuna_bot_image"]
+	path = kizuna_bot_image
+	url = git@github.com:nekonenene/kizuna_bot_image.git
