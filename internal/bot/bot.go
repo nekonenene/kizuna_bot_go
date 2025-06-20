@@ -156,7 +156,7 @@ func (b *KizunaBot) handleMention(s *discordgo.Session, m *discordgo.MessageCrea
 	content = strings.TrimSpace(content)
 
 	// メンション内容に応じた会話応答を生成
-	reply := b.getMunouMessage(content, m)
+	reply := b.getMunouMessage(content, s, m)
 	if reply != "" {
 		s.ChannelMessageSend(m.ChannelID, reply)
 	}

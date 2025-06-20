@@ -76,10 +76,13 @@ func (b *KizunaBot) handleImage(s *discordgo.Session, m *discordgo.MessageCreate
 	s.ChannelMessageSend(m.ChannelID, message)
 }
 
-// handleRank shows user activity ranking
+// handleRank はチャンネル内のユーザーアクティビティランキングを表示
 func (b *KizunaBot) handleRank(s *discordgo.Session, m *discordgo.MessageCreate) {
-	// TODO: Implement ranking functionality
-	message := "ランキング機能は実装中です。しばらくお待ちください！"
+	message, err := b.apiClient.GetUserRanking(s, m.ChannelID)
+	if err != nil {
+		log.Printf("ランキング取得エラー: %v", err)
+		message = "ランキングの取得に失敗しました。しばらく時間をおいてからお試しください。"
+	}
 	s.ChannelMessageSend(m.ChannelID, message)
 }
 
@@ -120,7 +123,7 @@ func (b *KizunaBot) handleVTuber(s *discordgo.Session, m *discordgo.MessageCreat
 }
 
 // getMunouMessage はメンション時の応答メッセージを生成
-func (b *KizunaBot) getMunouMessage(message string, m *discordgo.MessageCreate) string {
+func (b *KizunaBot) getMunouMessage(message string, s *discordgo.Session, m *discordgo.MessageCreate) string {
 	content := strings.ToLower(message)
 
 	switch {
@@ -139,7 +142,11 @@ func (b *KizunaBot) getMunouMessage(message string, m *discordgo.MessageCreate) 
 	case strings.Contains(content, "ニュース"):
 		return "ニュース取得機能は実装中です"
 	case strings.Contains(content, "ランキング"):
-		return "ランキング機能は実装中です"
+		// メンション応答でのランキング機能
+		if ranking, err := b.apiClient.GetUserRanking(s, m.ChannelID); err == nil {
+			return ranking
+		}
+		return "ランキングの取得に失敗しました"
 	case strings.Contains(content, "おなかすいた") || strings.Contains(content, "おなすき"):
 		responses := []string{
 			"栄養あるものをしっかり食べようね！",
