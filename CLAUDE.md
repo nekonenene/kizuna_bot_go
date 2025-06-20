@@ -140,6 +140,18 @@ make test
 - Add comprehensive comments for functions, types, and complex logic
 - Document API integrations and their expected responses
 
+### EditorConfig Rules
+
+Follow the `.editorconfig` settings for consistent code formatting:
+
+- **General files**: 2 spaces indentation, UTF-8 encoding, LF line endings, trim trailing whitespace
+- **Go files** (`.go`): Tab indentation with 4-space width
+- **Makefiles**: Tab indentation with 4-space width  
+- **Markdown files** (`.md`): 4 spaces indentation, do not trim trailing whitespace (for proper line breaks)
+- **All files**: Must end with a newline character (`insert_final_newline = true`)
+
+When editing code, ensure your editor respects these `.editorconfig` settings to maintain consistency across the codebase.
+
 ## Common Issues
 
 1. **Missing API Keys**: Ensure all required environment variables are set in `.env`
