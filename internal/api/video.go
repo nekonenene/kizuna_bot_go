@@ -18,12 +18,12 @@ type YouTubeSearchResponse struct {
 func (c *Client) GetVideoByQuery(query string) (string, error) {
 	// YouTube Data API検索パラメータを構築
 	params := map[string]string{
-		"key":         c.config.YouTubeDataAPIKey,
-		"part":        "id",
-		"type":        "video",
-		"maxResults":  "50",
-		"order":       "date",  // 日付順でソート
-		"regionCode":  "JP",    // 日本地域での検索
+		"key":        c.config.YouTubeDataAPIKey,
+		"part":       "id",
+		"type":       "video",
+		"maxResults": "50",
+		"order":      "date", // 日付順でソート
+		"regionCode": "JP",   // 日本地域での検索
 	}
 
 	// クエリが空でない場合のみq パラメータを追加
@@ -60,12 +60,12 @@ func (c *Client) GetVideoByChannel(channelID string) (string, error) {
 
 	// YouTube Data API検索パラメータを構築
 	params := map[string]string{
-		"key":         c.config.YouTubeDataAPIKey,
-		"part":        "id",
-		"type":        "video",
-		"channelId":   channelID,
-		"maxResults":  "50",
-		"order":       "date", // 日付順でソート
+		"key":        c.config.YouTubeDataAPIKey,
+		"part":       "id",
+		"type":       "video",
+		"channelId":  channelID,
+		"maxResults": "50",
+		"order":      "date", // 日付順でソート
 	}
 
 	// リクエストURLを構築

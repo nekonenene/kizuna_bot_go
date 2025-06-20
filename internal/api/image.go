@@ -29,9 +29,9 @@ func (c *Client) GetImageSearch(query string) (string, error) {
 		"key":        c.config.CustomSearchAPIKey,
 		"cx":         c.config.CustomSearchEngineID,
 		"q":          query,
-		"hl":         "ja",        // 言語設定（日本語）
-		"searchType": "image",     // 画像検索指定
-		"num":        "10",        // Ruby版と同様に最大10件取得
+		"hl":         "ja",    // 言語設定（日本語）
+		"searchType": "image", // 画像検索指定
+		"num":        "10",    // Ruby版と同様に最大10件取得
 	}
 
 	// リクエストURLを構築

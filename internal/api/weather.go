@@ -11,9 +11,9 @@ type WeatherResponse struct {
 		City string `json:"city"`
 	} `json:"location"`
 	Forecasts []struct {
-		DateLabel string `json:"dateLabel"`
-		Date      string `json:"date"`
-		Telop     string `json:"telop"`
+		DateLabel   string `json:"dateLabel"`
+		Date        string `json:"date"`
+		Telop       string `json:"telop"`
 		Temperature struct {
 			Max *struct {
 				Celsius string `json:"celsius"`
