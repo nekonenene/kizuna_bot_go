@@ -121,7 +121,7 @@ For server deployment, use:
 make build-linux
 ```
 
-This creates a statically linked binary in `build/kizuna_bot_go-linux` that can be deployed directly to a Linux server.
+This creates a statically linked binary in `build/kizuna_bot-linux` that can be deployed directly to a Linux server.
 
 ## Testing
 

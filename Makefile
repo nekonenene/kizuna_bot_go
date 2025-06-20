@@ -1,7 +1,7 @@
 .PHONY: build clean run dev test deps
 
 # バイナリファイル名
-BINARY_NAME=kizuna_bot_go
+BINARY_NAME=kizuna_bot
 BUILD_DIR=build
 
 # ビルド時のフラグ（バイナリサイズを最小化）

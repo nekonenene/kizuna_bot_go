@@ -71,7 +71,7 @@ make dev
 make build-linux
 ```
 
-生成されたバイナリは `build/kizuna_bot_go-linux` に出力される。
+生成されたバイナリは `build/kizuna_bot-linux` に出力される。
 
 
 ## 利用可能なMakeコマンド
@@ -121,7 +121,7 @@ After=network.target
 Type=simple
 User=your-user-name
 WorkingDirectory=/path/to/bot
-ExecStart=/path/to/bot/kizuna_bot_go-linux
+ExecStart=/path/to/bot/kizuna_bot
 Restart=always
 RestartSec=5
 
