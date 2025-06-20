@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Go implementation of Kizuna Bot, a Discord bot that provides various features including weather reports, news articles, restaurant search, and conversational responses. The bot is designed to be deployed as a single binary on a server.
+This is a Go implementation of Kizuna Bot, a Discord bot that provides comprehensive features including weather reports, news articles, restaurant search, image search, video search, translation, user ranking, and conversational responses. The bot is designed to be deployed as a single binary on a server and offers full feature parity with the original Ruby version.
 
 ## Development Commands
 
@@ -77,9 +77,9 @@ BOT_CLIENT_ID=              # Discord bot client ID
 BOT_TOKEN=                  # Discord bot token
 RSS2JSON_API_KEY=          # For news fetching
 RECRUIT_API_KEY=           # For restaurant search
-CUSTOM_SEARCH_ENGINE_ID=   # For image search (not yet implemented)
-CUSTOM_SEARCH_API_KEY=     # For image search (not yet implemented)
-YOUTUBE_DATA_API_KEY=      # For video search (not yet implemented)
+CUSTOM_SEARCH_ENGINE_ID=   # For image search
+CUSTOM_SEARCH_API_KEY=     # For image search
+YOUTUBE_DATA_API_KEY=      # For video search
 ```
 
 ## Bot Features
@@ -91,17 +91,19 @@ YOUTUBE_DATA_API_KEY=      # For video search (not yet implemented)
 - `/news` - Random news from Hatena
 - `/dice [max]` - Roll a dice (default 6-sided)
 - `/gourmet <address> [keyword]` - Restaurant search
+- `/image`, `/img <query>` - Image search (Google Custom Search API)
+- `/video`, `/youtube <query>` - YouTube video search
+- `/vtuber [query]` - VTuber video search
+- `/eng <text>` - English translation
+- `/jpn`, `/jap <text>` - Japanese translation
+- `/rank` - User activity ranking in channel
 
 ### Implemented Responses
-- Mention responses with conversational patterns
+- Mention responses with conversational patterns (weather, news, translation, ranking)
 - Weather pattern matching ("天気は？")
 - Various greeting and emotional responses
-
-### TODO (API Keys Required)
-- Image search (`/image`, `/img`)
-- Video search (`/video`, `/youtube`, `/vtuber`)
-- Translation (`/eng`, `/jpn`)
-- User activity ranking (`/rank`)
+- "ゆーま？" pattern for specific channel video search
+- Translation with quotes: "英語で「テキスト」" / "日本語で「テキスト」"
 
 ## Development Notes
 
