@@ -86,16 +86,14 @@ func (b *KizunaBot) handleRank(s *discordgo.Session, m *discordgo.MessageCreate)
 	s.ChannelMessageSend(m.ChannelID, message)
 }
 
-// handleTranslate translates text
+// handleTranslate はテキストを指定された言語に翻訳
 func (b *KizunaBot) handleTranslate(s *discordgo.Session, m *discordgo.MessageCreate, args []string, targetLang string) {
-	if len(args) == 0 {
-		s.ChannelMessageSend(m.ChannelID, "翻訳するテキストを入力してね！")
-		return
-	}
-
 	text := strings.Join(args, " ")
-	// TODO: Implement translation API call
-	message := fmt.Sprintf("翻訳機能は実装中です。テキスト: %s, 言語: %s", text, targetLang)
+	message, err := b.apiClient.GetTranslation(text, targetLang)
+	if err != nil {
+		log.Printf("翻訳エラー: %v", err)
+		message = "翻訳に失敗しました。しばらく時間をおいてからお試しください。"
+	}
 	s.ChannelMessageSend(m.ChannelID, message)
 }
 
@@ -128,11 +126,17 @@ func (b *KizunaBot) getMunouMessage(message string, s *discordgo.Session, m *dis
 
 	switch {
 	case strings.Contains(content, "英語で"):
-		// TODO: Extract text in quotes and translate
-		return "「」で囲ってくれると英語に翻訳するよ〜"
+		// 「」で囲まれたテキストを英語に翻訳
+		if result, err := b.apiClient.GetTranslationWithQuotes(m.Content, "en"); err == nil {
+			return result
+		}
+		return "翻訳に失敗しました"
 	case strings.Contains(content, "日本語で"):
-		// TODO: Extract text in quotes and translate
-		return "「」で囲ってくれると日本語に翻訳するよ〜"
+		// 「」で囲まれたテキストを日本語に翻訳
+		if result, err := b.apiClient.GetTranslationWithQuotes(m.Content, "ja"); err == nil {
+			return result
+		}
+		return "翻訳に失敗しました"
 	case strings.Contains(content, "天気"):
 		// TODO: Return weather info
 		return "天気情報の取得機能は実装中です"
