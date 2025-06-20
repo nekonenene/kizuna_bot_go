@@ -65,16 +65,14 @@ func (b *KizunaBot) handleGourmet(s *discordgo.Session, m *discordgo.MessageCrea
 	s.ChannelMessageSend(m.ChannelID, message)
 }
 
-// handleImage searches for images
+// handleImage はGoogle Custom Search APIで画像を検索
 func (b *KizunaBot) handleImage(s *discordgo.Session, m *discordgo.MessageCreate, args []string) {
-	if len(args) == 0 {
-		s.ChannelMessageSend(m.ChannelID, "検索ワードがないよ？ 『/image ねこ』みたいに書いてね！")
-		return
-	}
-
 	query := strings.Join(args, " ")
-	// TODO: Implement image search API call
-	message := fmt.Sprintf("画像検索機能は実装中です。検索ワード: %s", query)
+	message, err := b.apiClient.GetImageSearch(query)
+	if err != nil {
+		log.Printf("画像検索エラー: %v", err)
+		message = "画像検索に失敗しました。しばらく時間をおいてからお試しください。"
+	}
 	s.ChannelMessageSend(m.ChannelID, message)
 }
 
