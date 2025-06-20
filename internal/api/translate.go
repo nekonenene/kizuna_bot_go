@@ -94,3 +94,4 @@ func (c *Client) GetTranslationWithQuotes(content, targetLang string) (string, e
 	extractedText := string(runes[startIndex:endIndex])
 	return c.GetTranslation(extractedText, targetLang)
 }
+

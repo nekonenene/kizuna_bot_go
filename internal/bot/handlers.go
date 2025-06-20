@@ -138,13 +138,20 @@ func (b *KizunaBot) getMunouMessage(message string, s *discordgo.Session, m *dis
 		}
 		return "翻訳に失敗しました"
 	case strings.Contains(content, "天気"):
-		// TODO: Return weather info
-		return "天気情報の取得機能は実装中です"
+		// メンション応答での天気機能
+		if weather, err := b.apiClient.GetWeather(); err == nil {
+			return weather
+		}
+		return "天気情報の取得に失敗しました"
 	case strings.Contains(content, "さいころ") || strings.Contains(content, "サイコロ"):
 		result := rand.Intn(6) + 1
 		return fmt.Sprintf("6面サイコロを回したら、「%d」が出たよ！", result)
 	case strings.Contains(content, "ニュース"):
-		return "ニュース取得機能は実装中です"
+		// メンション応答でのニュース機能
+		if news, err := b.apiClient.GetNews(); err == nil {
+			return news
+		}
+		return "ニュース取得に失敗しました"
 	case strings.Contains(content, "ランキング"):
 		// メンション応答でのランキング機能
 		if ranking, err := b.apiClient.GetUserRanking(s, m.ChannelID); err == nil {
@@ -278,7 +285,11 @@ func (b *KizunaBot) getMunouMessage(message string, s *discordgo.Session, m *dis
 		}
 		return responses[rand.Intn(len(responses))]
 	case strings.Contains(content, "ひま") || strings.Contains(content, "ヒマ") || strings.Contains(content, "暇"):
-		return "ニュース取得機能は実装中です"
+		// Ruby版と同様に「ひま」でニュースを返す
+		if news, err := b.apiClient.GetNews(); err == nil {
+			return news
+		}
+		return "ニュース取得に失敗しました"
 	case strings.Contains(content, "アニメ"):
 		return "アニメといえばキルミーベイベーだよね！"
 	case strings.HasSuffix(content, "！！") || strings.HasSuffix(content, "!!"):
